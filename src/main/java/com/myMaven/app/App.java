@@ -20,10 +20,16 @@ import ml.dmlc.xgboost4j.java.XGBoostError;
 public class App 
 {
     public static void main( String[] args ) throws XGBoostError
-    {		
-    	/*
-    	Booster booster2 = XGBoost.loadModel("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/xgb.model");
+    {	
+    	//load Dmatrix produced by R		
+    	DMatrix trainMat = new DMatrix("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/xgb.DMatrix.data");
+    	System.out.println(trainMat.rowNum());
 
+    	//load model produced by R
+    	Booster booster2 = XGBoost.loadModel("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/xgb.model");
+ 
+    	
+    	//create a testing feature, test it  	
 	    float[] data = new float[] {1f,2f,3f,4f,5f,6f,1f,2f,3f,4f,5f,6f,1f};
 	    int nrow = 1;
 	    int ncol = 13;
@@ -31,42 +37,14 @@ public class App
 	    DMatrix dmat = new DMatrix(data, nrow, ncol, missing);
 	    float[][] predicts3 = booster2.predict(dmat);
 	    for (int i = 0; i <15 ;  i++) {
-	    System.out.println(predicts3[0][i]);
-	    }*/
-    	 DMatrix trainMat = new DMatrix("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/xgb.DMatrix.data");
+	    	System.out.println(predicts3[0][i]);
+	    }
+	    
     	/*
-    	    DMatrix trainMat = new DMatrix("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/agaricus.txt.train");
-    	    DMatrix testMat = new DMatrix("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/agaricus.txt.test");
-    
-    	    trainMat.rowNum();
-    	    System.out.println(trainMat.rowNum());
-    	    HashMap<String, Object> params = new HashMap<String, Object>();
-    	    params.put("eta", 1.0);
-    	    params.put("max_depth", 2);
-    	    params.put("silent", 0);
-    	    params.put("objective", "binary:logistic");
-			
-    	    HashMap<String, DMatrix> watches = new HashMap<String, DMatrix>();
-    	    watches.put("train", trainMat);
-    	    watches.put("test", testMat);
-
-    	    //set round
-    	    int round = 2;
-
-    	    //train a boost model
-    	    Booster booster = XGBoost.train(trainMat, params, round, watches, null, null);
-
-    	    //predict
-    	    float[][] predicts = booster.predict(testMat);
-
-    	    //save model to modelPath
-    	    File file = new File("./model");
-    	    if (!file.exists()) {
-    	      file.mkdirs();
-    	    }
-
-    	    String modelPath = "./model/xgb.model";
-    	    booster.saveModel(modelPath);
-			*/
+	   //test trainMat is pass correctly 
+    	float[][] predicts3 = booster2.predict(trainMat);
+	    for (int i = 0; i <15 ;  i++) {
+	    	System.out.println(predicts3[0][i]);
+	    }*/
     }
 }
