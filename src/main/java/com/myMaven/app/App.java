@@ -22,11 +22,11 @@ public class App
     public static void main( String[] args ) throws XGBoostError
     {	
     	//load Dmatrix produced by R		
-    	DMatrix trainMat = new DMatrix("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/xgb.DMatrix.data");
+    	DMatrix trainMat = new DMatrix("src/data/xgb.DMatrix.data");
     	System.out.println(trainMat.rowNum());
 
     	//load model produced by R
-    	Booster booster2 = XGBoost.loadModel("/home/stream/Desktop/stupidjava/mvn2017/HelloXgb4J/src/data/xgb.model");
+    	Booster booster2 = XGBoost.loadModel("src/data/xgb.model");
  
     	
     	//create a testing feature, test it  	
@@ -36,10 +36,14 @@ public class App
 	    float missing = 0.0f;
 	    DMatrix dmat = new DMatrix(data, nrow, ncol, missing);
 	    float[][] predicts3 = booster2.predict(dmat);
-	    for (int i = 0; i <15 ;  i++) {
-	    	System.out.println(predicts3[0][i]);
+        long startTime = System.currentTimeMillis();
+	    for (int i = 0; i <100000 ;  i++) {
+	        predicts3 = booster2.predict(dmat);
 	    }
-	    
+	    long endTime   = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        
+        System.out.println("it takes : "+Long.toString(totalTime/1000)+" secs for 100000 records ");
     	/*
 	   //test trainMat is pass correctly 
     	float[][] predicts3 = booster2.predict(trainMat);
