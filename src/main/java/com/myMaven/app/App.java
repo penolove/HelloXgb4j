@@ -29,21 +29,21 @@ public class App
     	Booster booster2 = XGBoost.loadModel("src/data/xgb.model");
  
     	
-    	//create a testing feature, test it  	
-	    float[] data = new float[] {1f,2f,3f,4f,5f,6f,1f,2f,3f,4f,5f,6f,1f};
+    	//create a testing feature, test it
+		float[] data = new float[] {678f,928f,1448f,1448f,1448f,8f,104f,112f,61366f,14872f,154008f,443f,51319f};
 	    int nrow = 1;
 	    int ncol = 13;
 	    float missing = 0.0f;
 	    DMatrix dmat = new DMatrix(data, nrow, ncol, missing);
 	    float[][] predicts3 = booster2.predict(dmat);
         long startTime = System.currentTimeMillis();
-	    for (int i = 0; i <100000 ;  i++) {
+	    for (int i = 0; i <500000 ;  i++) {
 	        predicts3 = booster2.predict(dmat);
 	    }
 	    long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         
-        System.out.println("it takes : "+Long.toString(totalTime/1000)+" secs for 100000 records ");
+        System.out.println("it takes : "+Long.toString(totalTime/1000)+" secs for 500000 records ");
     	/*
 	   //test trainMat is pass correctly 
     	float[][] predicts3 = booster2.predict(trainMat);
